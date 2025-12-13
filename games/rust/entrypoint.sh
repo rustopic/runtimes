@@ -7,7 +7,23 @@ export INTERNAL_IP=`ip route get 1 | awk '{print $(NF-2);exit}'`
 
 ## if auto_update is not set or to 1 update
 if [ -z ${AUTO_UPDATE} ] || [ "${AUTO_UPDATE}" == "1" ]; then
-	./steamcmd/steamcmd.sh +force_install_dir /home/container +login anonymous +app_update 258550 +quit
+	# Branch sistemi: staging, aux01, aux02, aux03 için -beta parametresi eklenir
+	# Branch null/boş ise normal public branch kullanılır
+	STEAMCMD_UPDATE_CMD="+app_update 258550"
+	
+	if [ -n "${BRANCH}" ]; then
+		case "${BRANCH}" in
+			staging|aux01|aux02|aux03)
+				STEAMCMD_UPDATE_CMD="${STEAMCMD_UPDATE_CMD} -beta ${BRANCH}"
+				echo "Using beta branch: ${BRANCH}"
+				;;
+			*)
+				echo "Warning: Unknown branch '${BRANCH}', using default public branch"
+				;;
+		esac
+	fi
+	
+	./steamcmd/steamcmd.sh +force_install_dir /home/container +login anonymous ${STEAMCMD_UPDATE_CMD} +quit
 else
     echo -e "Not updating game server as auto update was set to 0. Starting Server"
 fi

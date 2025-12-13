@@ -8,6 +8,9 @@ on:
       - main
     paths:
       - nodejs/*
+permissions:
+  contents: read
+  packages: write
 jobs:
   push:
     name: "runtimes:nodejs_${{ matrix.tag }}"

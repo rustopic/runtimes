@@ -9,6 +9,10 @@ on:
     paths:
       - installers/**
 
+permissions:
+  contents: read
+  packages: write
+
 # Two separate jobs, first for multiarch (amd64, arm64), second for amd64 only
 
 jobs:

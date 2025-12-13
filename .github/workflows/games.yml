@@ -8,6 +8,9 @@ on:
       - main
     paths:
       - games/**
+permissions:
+  contents: read
+  packages: write
 jobs:
   push:
     name: "games:${{ matrix.game }}"

@@ -8,6 +8,9 @@ on:
       - main
     paths:
       - oses/**
+permissions:
+  contents: read
+  packages: write
 jobs:
   push:
     name: "runtimes:${{ matrix.oses }}"

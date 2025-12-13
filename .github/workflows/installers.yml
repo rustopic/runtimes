@@ -32,7 +32,6 @@ jobs:
       - name: Setup QEMU for multiarch builds
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: arm64,amd64
           image: tonistiigi/binfmt:qemu-v7.0.0-28
       - uses: docker/login-action@v3
         with:

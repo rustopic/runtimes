@@ -1,6 +1,6 @@
 #
 # Copyright (c) 2021 Matthew Penner
-# Copyright (c) 2024 Rustopic
+# Copyright (c) 2026 Rustopic
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,20 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH debian:bullseye-slim
+FROM        --platform=$TARGETOS/$TARGETARCH node:21-alpine
 
 LABEL       author="zeqcv" maintainer="contact@rustopic.com"
 
 LABEL       org.opencontainers.image.source="https://github.com/rustopic/runtimes"
 LABEL       org.opencontainers.image.licenses=MIT
 
-ENV         DEBIAN_FRONTEND=noninteractive
+RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \
+	&& adduser -D -h /home/container container
 
-RUN         dpkg --add-architecture i386 \
-				&& apt update \
-				&& apt upgrade -y \
-				&& apt -y --no-install-recommends install ca-certificates curl lib32gcc-s1 libsdl2-2.0-0:i386 git wget
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
+
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/ash", "/entrypoint.sh" ]
+

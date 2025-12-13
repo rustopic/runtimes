@@ -59,7 +59,7 @@ gameProcess.on('exit', function (code, signal) {
 	exited = true;
 
 	if (code) {
-		console.log("Main game process exited with code " + code);
+		console.log("Server startup process crashed with code " + code);
 		// process.exit(code);
 	}
 });

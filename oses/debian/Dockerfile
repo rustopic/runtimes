@@ -5,7 +5,7 @@
 
 FROM        --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
-LABEL       author="Rustopic" maintainer="rustopic@rustopic.com"
+LABEL       author="zeqcv" maintainer="contact@rustopic.com"
 
 LABEL       org.opencontainers.image.source="https://github.com/rustopic/runtimes"
 LABEL       org.opencontainers.image.licenses=MIT

@@ -1,45 +1,99 @@
 # Runtimes
 
-Rust tabanlı agent sistemleri için özenle hazırlanmış runtime görüntüleri koleksiyonu. Her görüntü düzenli olarak
-yeniden derlenir ve bağımlılıkların her zaman güncel olduğundan emin olunur.
+A curated collection of Docker runtime images designed for Rust-based agent systems. Each image is automatically rebuilt on a regular schedule to ensure dependencies are always up-to-date and secure.
 
-Görüntüler `ghcr.io` üzerinde barındırılır ve `games`, `installers` ve `runtimes` alanları altında bulunur. Bir görüntünün
-hangi alanda yaşayacağını belirlerken aşağıdaki mantık kullanılır:
+All images are hosted on GitHub Container Registry (`ghcr.io`) and are available under the `games`, `installers`, and `runtimes` namespaces. The following logic determines which namespace an image belongs to:
 
-* `oses` — temel paketleri içeren başlangıç görüntüleri.
-* `games` — repository içindeki `games` klasöründeki her şey. Bunlar belirli bir oyun veya oyun türünü çalıştırmak için
-oluşturulmuş görüntülerdir.
-* `installers` — `installers` dizini içinde bulunan her şey. Bu görüntüler, farklı kurulum scriptleri tarafından kullanılır,
-gerçekte bir oyun sunucusu çalıştırmak için değil. Bu görüntüler yalnızca `curl` ve `wget` gibi yaygın kurulum bağımlılıklarını
-önceden yükleyerek kurulum süresini ve ağ kullanımını azaltmak için tasarlanmıştır.
-* `runtimes` — bunlar farklı türde oyunların veya scriptlerin çalışmasına izin veren daha genel görüntülerdir. Genellikle
-belirli bir yazılım sürümüdür ve farklı runtime'ların altta yatan uygulamayı değiştirmesine izin verir. Bunun bir örneği,
-botları, Minecraft sunucularını vb. çalıştırmak için kullanılan Java veya Python gibi bir şey olabilir.
+## Image Categories
 
-Tüm bu görüntüler, aksi belirtilmedikçe `linux/amd64` ve `linux/arm64` sürümleri için mevcuttur. Bu görüntüleri bir arm64
-sisteminde kullanmak için bunlarda veya etiketinde herhangi bir değişiklik yapmanız gerekmez, sadece çalışmalıdırlar.
+### Base Operating Systems (`oses`)
+Base images containing essential packages to get you started. These provide a minimal foundation for building custom runtime environments.
 
-## Katkıda Bulunma
+- **Alpine**: `ghcr.io/rustopic/runtimes:alpine`
+- **Debian**: `ghcr.io/rustopic/runtimes:debian`
 
-Mevcut bir görüntüye yeni bir sürüm eklerken, örneğin `rust v1.75`, bunu `rust` klasörünün bir alt klasörüne ekleyin,
-örneğin `rust/1.75/Dockerfile`. Lütfen ayrıca doğru `.github/workflows` dosyasını güncelleyerek bu yeni sürümün
-doğru şekilde etiketlendiğinden emin olun.
+### Game Runtimes (`games`)
+Images specifically built for running game servers or game-related applications.
 
-## Mevcut Görüntüler
+- **Rust**: `ghcr.io/rustopic/games:rust`
+  - Supports Rust game server with SteamCMD integration
+  - Includes branch support (staging, aux01, aux02, aux03)
+  - Automatic game server updates
 
-* [`base oses`](https://github.com/rustopic/runtimes/tree/master/oses)
-  * [`alpine`](https://github.com/rustopic/runtimes/tree/master/oses/alpine)
-    * `ghcr.io/rustopic/runtimes:alpine`
-  * [`debian`](https://github.com/rustopic/runtimes/tree/master/oses/debian)
-    * `ghcr.io/rustopic/runtimes:debian`
-* [`games`](https://github.com/rustopic/runtimes/tree/master/games)
-  * [`rust`](https://github.com/rustopic/runtimes/tree/master/games/rust)
-    * `ghcr.io/rustopic/games:rust`
+### Runtime Environments (`runtimes`)
+Generic runtime images that allow different types of applications or scripts to run. These are typically specific versions of programming languages or frameworks.
 
-### Kurulum Görüntüleri
+#### Node.js Runtimes
+- **Node.js 16**: `ghcr.io/rustopic/runtimes:nodejs_16`
+- **Node.js 17**: `ghcr.io/rustopic/runtimes:nodejs_17`
+- **Node.js 18**: `ghcr.io/rustopic/runtimes:nodejs_18` (LTS)
+- **Node.js 20**: `ghcr.io/rustopic/runtimes:nodejs_20` (LTS)
+- **Node.js 21**: `ghcr.io/rustopic/runtimes:nodejs_21`
+- **Node.js 22**: `ghcr.io/rustopic/runtimes:nodejs_22` (LTS)
+- **Node.js 24**: `ghcr.io/rustopic/runtimes:nodejs_24`
 
-* [`alpine-install`](https://github.com/rustopic/runtimes/tree/master/installers/alpine)
-  * `ghcr.io/rustopic/installers:alpine`
+### Installer Images (`installers`)
+Images used by installation scripts for different applications. These are not designed to run game servers, but rather to reduce installation time and network usage by pre-installing common installation dependencies such as `curl`, `wget`, `git`, and `jq`.
 
-* [`debian-install`](https://github.com/rustopic/runtimes/tree/master/installers/debian)
-  * `ghcr.io/rustopic/installers:debian`
+- **Alpine Installer**: `ghcr.io/rustopic/installers:alpine`
+- **Debian Installer**: `ghcr.io/rustopic/installers:debian`
+
+## Platform Support
+
+All images are available for both `linux/amd64` and `linux/arm64` architectures, unless otherwise specified. To use these images on an ARM64 system, no modification to the image or tag is needed—they should work out of the box.
+
+## Quick Start
+
+### Pulling an Image
+
+```bash
+# Pull a Node.js runtime
+docker pull ghcr.io/rustopic/runtimes:nodejs_22
+
+# Pull a game runtime
+docker pull ghcr.io/rustopic/games:rust
+
+# Pull a base OS image
+docker pull ghcr.io/rustopic/runtimes:alpine
+```
+
+### Using in Docker Compose
+
+```yaml
+version: '3.8'
+services:
+  app:
+    image: ghcr.io/rustopic/runtimes:nodejs_22
+    volumes:
+      - ./app:/home/container
+    environment:
+      - STARTUP=npm start
+```
+
+## Contributing
+
+When adding a new version to an existing image, such as `nodejs v25`, add it within a child folder of the runtime directory. For example, create `nodejs/25/Dockerfile`. Please also update the corresponding `.github/workflows` file to ensure the new version is tagged correctly and included in the build matrix.
+
+### Adding a New Runtime
+
+1. Create a new directory under the appropriate category (`nodejs/`, `games/`, etc.)
+2. Add a `Dockerfile` with the necessary configuration
+3. Update the corresponding workflow file in `.github/workflows/`
+4. Update this README with the new image information
+
+## Automated Builds
+
+All images are automatically built and pushed to GitHub Container Registry when:
+- Changes are pushed to the `main` branch
+- A workflow is manually triggered via GitHub Actions
+- Monthly on the 1st of each month (scheduled builds)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+This project includes modified and customized code originally developed by Matthew Penner and licensed under the MIT License. See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for third-party license information.
+
+## Support
+
+For issues, questions, or contributions, please visit our [GitHub repository](https://github.com/rustopic/runtimes).

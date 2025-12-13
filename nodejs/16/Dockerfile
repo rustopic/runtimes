@@ -2,9 +2,9 @@
 
 FROM        --platform=$TARGETOS/$TARGETARCH node:16-alpine
 
-LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL       author="Batuhan Aydemir" maintainer="batuhan.aydemir@rustopic.com"
 
-LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.source="https://github.com/rustopic/runtimes"
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl sqlite tar tzdata \

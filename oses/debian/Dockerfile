@@ -1,11 +1,8 @@
-#
-# Copyright (c) 2021 Michael Parker
-# Copyright (c) 2024 Rustopic
-#
+
 
 FROM        --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
-LABEL       author="zeqcv" maintainer="contact@rustopic.com"
+LABEL       author="Batuhan Aydemir" maintainer="batuhan.aydemir@rustopic.com"
 
 LABEL       org.opencontainers.image.source="https://github.com/rustopic/runtimes"
 LABEL       org.opencontainers.image.licenses=MIT

@@ -11,6 +11,10 @@ on:
       - installers/**
       - .github/workflows/installers.yml
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     name: "installers:${{ matrix.os }}"

@@ -11,6 +11,10 @@ on:
       - oses/**
       - .github/workflows/oses.yml
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     name: "runtimes:${{ matrix.os }}"

@@ -11,6 +11,10 @@ on:
       - games/rust/**
       - .github/workflows/games-rust.yml
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     name: "games:rust"

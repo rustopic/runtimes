@@ -11,6 +11,10 @@ on:
       - nodejs/**
       - .github/workflows/nodejs.yml
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     name: "runtimes:nodejs_${{ matrix.tag }}"

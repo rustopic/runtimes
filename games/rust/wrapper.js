@@ -2,8 +2,22 @@
 
 var startupCmd = "";
 const fs = require("fs");
-fs.writeFile("latest.log", "", (err) => {
-	if (err) console.log("Callback error in appendFile:" + err);
+
+// Tarih bazlı log dosyası oluştur: startup_YYYY-MM-DD_HH-MM-SS.log
+function getLogFileName() {
+	const now = new Date();
+	const year = now.getFullYear();
+	const month = String(now.getMonth() + 1).padStart(2, '0');
+	const day = String(now.getDate()).padStart(2, '0');
+	const hours = String(now.getHours()).padStart(2, '0');
+	const minutes = String(now.getMinutes()).padStart(2, '0');
+	const seconds = String(now.getSeconds()).padStart(2, '0');
+	return `startup_${year}-${month}-${day}_${hours}-${minutes}-${seconds}.log`;
+}
+
+const logFileName = getLogFileName();
+fs.writeFile(logFileName, "", (err) => {
+	if (err) console.log("Callback error in writeFile:" + err);
 });
 
 var args = process.argv.splice(process.execArgv.length + 2);
@@ -107,8 +121,7 @@ var poll = function () {
 			if (json !== undefined) {
 				if (json.Message !== undefined && json.Message.length > 0) {
 					console.log(json.Message);
-					const fs = require("fs");
-					fs.appendFile("latest.log", "\n" + json.Message, (err) => {
+					fs.appendFile(logFileName, "\n" + json.Message, (err) => {
 						if (err) console.log("Callback error in appendFile:" + err);
 					});
 				}

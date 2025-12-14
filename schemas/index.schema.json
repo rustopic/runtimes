@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["indexVersion", "images"],
+  "properties": {
+    "indexVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$",
+      "description": "Index specification version"
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "image", "category", "platforms", "channel", "tags", "availability"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+\\.[a-z0-9_]+$",
+            "description": "Unique identifier for the image (category.name)"
+          },
+          "image": {
+            "type": "string",
+            "pattern": "^ghcr\\.io/[a-z0-9_-]+/[a-z0-9_-]+:[a-z0-9_.-]+$",
+            "description": "Full image reference"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["games", "runtimes", "installers", "oses"],
+            "description": "Image category"
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["linux/amd64", "linux/arm64"]
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "Supported platforms"
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["stable", "beta", "staging"],
+            "description": "Release channel"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": true,
+            "description": "Searchable tags for the image"
+          },
+          "availability": {
+            "type": "string",
+            "enum": ["published", "planned"],
+            "description": "Image availability status"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true,
+            "description": "Optional list of features supported by the image"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}
+

@@ -1,0 +1,18 @@
+{
+  "name": "rustopic-runtimes",
+  "version": "0.1.0",
+  "description": "Rustopic Runtimes - Docker image repository for agent systems",
+  "type": "module",
+  "scripts": {
+    "validate": "node tools/validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "js-yaml": "^4.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

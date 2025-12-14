@@ -1,0 +1,40 @@
+name: Validate Manifests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - manifest.yml
+      - index.yml
+      - schemas/**
+      - tools/validate.mjs
+  pull_request:
+    branches:
+      - main
+    paths:
+      - manifest.yml
+      - index.yml
+      - schemas/**
+      - tools/validate.mjs
+
+jobs:
+  validate:
+    name: Validate YAML Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Validate manifests
+        run: npm run validate
+

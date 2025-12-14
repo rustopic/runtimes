@@ -1,0 +1,103 @@
+indexVersion: "1.0"
+images:
+  # Game Runtimes
+  - id: "games.rust"
+    image: "ghcr.io/rustopic/games:rust"
+    category: "games"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["rust"]
+    features: ["steamcmd", "auto_update", "branch_support"]
+    availability: "published"
+
+  # Installer Images
+  - id: "installers.alpine"
+    image: "ghcr.io/rustopic/installers:alpine"
+    category: "installers"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["alpine", "installer"]
+    availability: "published"
+
+  - id: "installers.debian"
+    image: "ghcr.io/rustopic/installers:debian"
+    category: "installers"
+    platforms: ["linux/amd64"]
+    channel: "stable"
+    tags: ["debian", "installer"]
+    availability: "published"
+
+  # Base Operating Systems
+  - id: "oses.alpine"
+    image: "ghcr.io/rustopic/runtimes:alpine"
+    category: "oses"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["alpine", "base"]
+    availability: "published"
+
+  - id: "oses.debian"
+    image: "ghcr.io/rustopic/runtimes:debian"
+    category: "oses"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["debian", "base"]
+    availability: "published"
+
+  # Node.js Runtimes
+  - id: "runtimes.nodejs_16"
+    image: "ghcr.io/rustopic/runtimes:nodejs_16"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_16", "nodejs"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_17"
+    image: "ghcr.io/rustopic/runtimes:nodejs_17"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_17", "nodejs"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_18"
+    image: "ghcr.io/rustopic/runtimes:nodejs_18"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_18", "nodejs", "lts"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_20"
+    image: "ghcr.io/rustopic/runtimes:nodejs_20"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_20", "nodejs", "lts"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_21"
+    image: "ghcr.io/rustopic/runtimes:nodejs_21"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_21", "nodejs"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_22"
+    image: "ghcr.io/rustopic/runtimes:nodejs_22"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_22", "nodejs", "lts"]
+    availability: "published"
+
+  - id: "runtimes.nodejs_24"
+    image: "ghcr.io/rustopic/runtimes:nodejs_24"
+    category: "runtimes"
+    platforms: ["linux/amd64", "linux/arm64"]
+    channel: "stable"
+    tags: ["nodejs_24", "nodejs"]
+    availability: "published"
+

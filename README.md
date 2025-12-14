@@ -94,6 +94,34 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 This project includes modified and customized code originally developed by Matthew Penner and licensed under the MIT License. See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for third-party license information.
 
+## Machine Discovery
+
+This repository provides machine-readable manifests for automated discovery and consumption:
+
+- **[manifest.yml](manifest.yml)**: Repository metadata and version information
+- **[index.yml](index.yml)**: Complete catalog of all available images with stable IDs
+- **[docs/tagging.md](docs/tagging.md)**: Tagging policy and channel definitions
+
+### Using the Index
+
+The `index.yml` file provides a stable, versioned catalog of all images. Each image has:
+- A stable `id` (e.g., `games.rust`, `runtimes.nodejs_22`)
+- Full image reference
+- Supported platforms
+- Release channel
+- Searchable tags
+- Availability status
+
+Example usage:
+```yaml
+# Find all Node.js runtimes
+images:
+  - id: runtimes.nodejs_22
+    image: ghcr.io/rustopic/runtimes:nodejs_22
+    category: runtimes
+    platforms: [linux/amd64, linux/arm64]
+```
+
 ## Support
 
 For issues, questions, or contributions, please visit our [GitHub repository](https://github.com/rustopic/runtimes).

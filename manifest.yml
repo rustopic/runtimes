@@ -1,0 +1,6 @@
+specVersion: "1.0"
+runtimesVersion: "0.1.0"
+minDaemonVersion: "0.1.0"
+generatedAt: "2026-01-15T12:00:00Z"
+notes: "Initial manifest for Rustopic Runtimes. All images are built for linux/amd64 and linux/arm64 platforms."
+

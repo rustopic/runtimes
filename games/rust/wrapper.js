@@ -17,7 +17,7 @@ function getLogFileName() {
 
 const logFileName = getLogFileName();
 fs.writeFile(logFileName, "", (err) => {
-	if (err) console.log("console.output.callback_error_in_writefile: " + err);
+	if (err) console.log("rust.console.output.callback_error_in_writefile: " + err);
 });
 
 var args = process.argv.splice(process.execArgv.length + 2);
@@ -30,7 +30,7 @@ for (var i = 0; i < args.length; i++) {
 }
 
 if (startupCmd.length < 1) {
-	console.log("console.output.error_please_specify_startup_command");
+	console.log("rust.console.output.error_please_specify_startup_command");
 	process.exit();
 }
 
@@ -50,7 +50,7 @@ function filter(data) {
 }
 
 var exec = require("child_process").exec;
-console.log("console.output.starting_rust");
+console.log("rust.console.output.starting_rust");
 
 var exited = false;
 const gameProcess = exec(startupCmd);
@@ -61,7 +61,7 @@ gameProcess.on("exit", function (code, signal) {
 
 	if (code) {
 		console.log(
-			"console.output.server_startup_process_crashed_with_code " + code
+			"rust.console.output.server_startup_process_crashed_with_code " + code
 		);
 		// process.exit(code);
 	}
@@ -73,7 +73,7 @@ function initialListener(data) {
 		gameProcess.kill("SIGTERM");
 	} else {
 		console.log(
-			'console.output.unable_to_run_command_due_to_rcon_not_connected: "' +
+			'rust.console.output.unable_to_run_command_due_to_rcon_not_connected: "' +
 				command +
 				'"'
 		);
@@ -87,7 +87,7 @@ process.on("exit", function (code) {
 	if (exited) return;
 
 	console.log(
-		"console.output.received_request_to_stop_process_stopping_game"
+		"rust.console.output.received_request_to_stop_process_stopping_game"
 	);
 	gameProcess.kill("SIGTERM");
 });
@@ -115,7 +115,7 @@ var poll = function () {
 
 	ws.on("open", function open() {
 		console.log(
-			"console.output.connected_to_rcon_generating_map_please_wait"
+			"rust.console.output.connected_to_rcon_generating_map_please_wait"
 		);
 		waiting = false;
 
@@ -139,13 +139,13 @@ var poll = function () {
 					fs.appendFile(logFileName, "\n" + json.Message, (err) => {
 						if (err)
 							console.log(
-								"console.output.callback_error_in_appendfile: " +
+								"rust.console.output.callback_error_in_appendfile: " +
 									err
 							);
 					});
 				}
 			} else {
-				console.log("console.output.error_invalid_json_received");
+				console.log("rust.console.output.error_invalid_json_received");
 			}
 		} catch (e) {
 			if (e) {
@@ -156,13 +156,13 @@ var poll = function () {
 
 	ws.on("error", function (err) {
 		waiting = true;
-		console.log("console.output.waiting_for_rcon_to_come_up");
+		console.log("rust.console.output.waiting_for_rcon_to_come_up");
 		setTimeout(poll, 5000);
 	});
 
 	ws.on("close", function () {
 		if (!waiting) {
-			console.log("console.output.connection_to_server_closed");
+			console.log("rust.console.output.connection_to_server_closed");
 
 			exited = true;
 			process.exit();
